@@ -1,39 +1,38 @@
 # Dolibarr language file - Source file is en_US - resource
-MenuResourceIndex=Resources
-MenuResourceAdd=New resource
-DeleteResource=Delete resource
-ConfirmDeleteResourceElement=Confirm delete the resource for this element
-NoResourceInDatabase=No resource in database.
-NoResourceLinked=No resource linked
-ActionsOnResource=Events about this resource
-ResourcePageIndex=Resources list
-ResourceSingular=Resource
-ResourceCard=Resource card
-AddResource=Create a resource
-ResourceFormLabel_ref=Resource name
-ResourceType=Resource type
-ResourceFormLabel_description=Resource description
+MenuResourceIndex=Ресурстар
+MenuResourceAdd=Жаңа ресурс
+DeleteResource=Ресурсты жою
+ConfirmDeleteResourceElement=Бұл элементтің ресурсын жоюды растаңыз
+NoResourceInDatabase=Деректер қорында ресурс жоқ.
+NoResourceLinked=Ешқандай ресурс байланыстырылмаған
+ActionsOnResource=Бұл ресурс туралы оқиғалар
+ResourcePageIndex=Ресурстар тізімі
+ResourceSingular=Ресурс
+ResourceCard=Ресурстық карта
+NewResource=Жаңа ресурс
+AddResource=Ресурс құру
+ResourceFormLabel_ref=Ресурстың атауы
+ResourceFormLabel_description=Ресурстар сипаттамасы
+ResourceType=Ресурстың түрі
+ResourceTypeID=Ресурс түрінің идентификаторы
+ResourceTypeLabel=Ресурс түрінің белгісі
+ResourcesLinkedToElement=Элементпен байланысқан ресурстар
 
-ResourcesLinkedToElement=Resources linked to element
-
-ShowResource=Show resource
-
-ResourceElementPage=Element resources
-ResourceCreatedWithSuccess=Resource successfully created
-RessourceLineSuccessfullyDeleted=Resource line successfully deleted
-RessourceLineSuccessfullyUpdated=Resource line successfully updated
-ResourceLinkedWithSuccess=Resource linked with success
-
-ConfirmDeleteResource=Confirm to delete this resource
-RessourceSuccessfullyDeleted=Resource successfully deleted
-DictionaryResourceType=Type of resources
-
-SelectResource=Select resource
-
-IdResource=Id resource
-AssetNumber=Serial number
-ResourceTypeCode=Resource type code
-ImportDataset_resource_1=Resources
-
-ErrorResourcesAlreadyInUse=Some resources are in use
-ErrorResourceUseInEvent=%s used in %s event
+ShowResource=Ресурсты көрсету
+ResourceElementPage=Элемент ресурстары
+ResourceCreatedWithSuccess=Ресурс сәтті құрылды
+RessourceLineSuccessfullyDeleted=Ресурстық желі сәтті жойылды
+RessourceLineSuccessfullyUpdated=Ресурстық желі сәтті жаңартылды
+ResourceLinkedWithSuccess=Табыспен байланысты ресурс
+ConfirmDeleteResource=Бұл ресурсты жоюды растаңыз
+RessourceSuccessfullyDeleted=Ресурс жойылды
+DictionaryResourceType=Ресурстар түрі
+SelectResource=Ресурсты таңдаңыз
+IdResource=Id ресурсы
+AssetNumber=Сериялық нөмір
+ResourceTypeCode=Ресурс түрінің коды
+ImportDataset_resource_1=Ресурстар
+ErrorResourcesAlreadyInUse=Кейбір ресурстар пайдаланылады
+ErrorResourceUseInEvent=%s %s оқиғасында қолданылады
+MaxUsers=Ең көп пайдаланушылар (орындар, орындар, т.б.)
+MaxUsersLabel=Ең көп пайдаланушылар

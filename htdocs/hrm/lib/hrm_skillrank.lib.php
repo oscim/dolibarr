@@ -3,6 +3,7 @@
  * Copyright (C) 2021 Greg Rastklan <greg.rastklan@atm-consulting.fr>
  * Copyright (C) 2021 Jean-Pascal BOUDET <jean-pascal.boudet@atm-consulting.fr>
  * Copyright (C) 2021 Grégory BLEMAND <gregory.blemand@atm-consulting.fr>
+ * Copyright (C) 2024		MDW					<mdeweerd@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +29,7 @@
  * Prepare array of tabs for SkillRank
  *
  * @param	SkillRank	$object		SkillRank
- * @return 	array					Array of tabs
+ * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
 function skillrankPrepareHead($object)
 {
@@ -55,7 +56,7 @@ function skillrankPrepareHead($object)
 		$head[$h][0] = dol_buildpath('/hrm/skillrank_note.php', 1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
-			$head[$h][1] .= (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER) ? '<span class="badge marginleftonlyshort">'.$nbNote.'</span>' : '');
+			$head[$h][1] .= (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') ? '<span class="badge marginleftonlyshort">'.$nbNote.'</span>' : '');
 		}
 		$head[$h][2] = 'note';
 		$h++;
@@ -113,46 +114,54 @@ function displayRankInfos($selected_rank, $fk_skill, $inputname = 'TNote', $mode
 
 	// On charge les différentes notes possibles pour la compétence $fk_skill
 	$skilldet = new Skilldet($db);
-	$Lines = $skilldet->fetchAll('ASC', 'rank', 0, 0, array('customsql'=>'fk_skill = '.$fk_skill));
+	$Lines = $skilldet->fetchAll('ASC', 'rankorder', 0, 0, '(fk_skill:=:'.((int) $fk_skill).')');
 
-	if (empty($Lines)) return $langs->trans('SkillHasNoLines');
-
-	$ret = '<!-- field jquery --><span title="'.$langs->trans('NA').'" class="radio_js_bloc_number '.$inputname.'_'.$fk_skill.(empty($selected_rank) ? ' selected' : '').'">0</span>';
-
-	foreach ($Lines as $line) {
-		$MaxNumberSkill = isset($conf->global->HRM_MAXRANK) ? $conf->global->HRM_MAXRANK : Skill::DEFAULT_MAX_RANK_PER_SKILL;
-		if ($line->rank > $MaxNumberSkill) {
-			continue;
-		}
-
-		$ret.= '<span title="'.$line->description.'" class="radio_js_bloc_number '.$inputname.'_'.$line->fk_skill;
-		$ret.= $line->rank == $selected_rank ? ' selected' : '';
-		$ret.= '">'.$line->rank.'</span>';
+	if (!is_array($Lines) && $Lines < 0) {
+		setEventMessages($skilldet->error, $skilldet->errors, 'errors');
+	}
+	if (empty($Lines)) {
+		return $langs->trans('SkillHasNoLines');
 	}
 
-	if ($mode == 'edit') {
-		$ret.= '
-		<input type="hidden" id="'.$inputname.'_'.$fk_skill.'" name="'.$inputname.'['.$fk_skill.']" value="'.$selected_rank.'">
+	$ret = '<!-- field jquery --><span title="'.$langs->trans('NA').'" class="radio_js_bloc_number '.$inputname.'_'.$fk_skill.($selected_rank == "-1" ? ' selected' : '').'">';
+	$ret .= $langs->trans('NA');
+	$ret .= '</span>';
+	if (is_array($Lines) && !empty($Lines)) {
+		foreach ($Lines as $line) {
+			$MaxNumberSkill = isset($conf->global->HRM_MAXRANK) ? $conf->global->HRM_MAXRANK : Skill::DEFAULT_MAX_RANK_PER_SKILL;
+			if ($line->rankorder > $MaxNumberSkill) {
+				continue;
+			}
+
+			$ret .= '<span title="' . $line->description . '" class="radio_js_bloc_number ' . $inputname . '_' . $line->fk_skill;
+			$ret .= $line->rankorder == $selected_rank ? ' selected' : '';
+			$ret .= '">' . $line->rankorder . '</span>';
+		}
+
+		if ($mode == 'edit') {
+			$ret .= '
+		<input type="hidden" id="' . $inputname . '_' . $fk_skill . '" name="' . $inputname . '[' . $fk_skill . ']" value="' . $selected_rank . '">
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$(".radio_js_bloc_number").tooltip();
 				var error,same;
-				$(".'.$inputname.'_'.$fk_skill.'").on("click",function(){
+				$(".' . $inputname . '_' . $fk_skill . '").on("click",function(){
 					same=false;
 					val = $(this).html();
 					if($(this).hasClass("selected"))same=true;
-					$(".'.$inputname.'_'.$fk_skill.'").removeClass("selected");
+					$(".' . $inputname . '_' . $fk_skill . '").removeClass("selected");
 					if(same)
 					{
-						$("#'.$inputname.'_'.$fk_skill.'").val("");
+						$("#' . $inputname . '_' . $fk_skill . '").val("");
 					}else {
 						$(this).addClass("selected");
-						$("#'.$inputname.'_'.$fk_skill.'").val(val);
+						$("#' . $inputname . '_' . $fk_skill . '").val(val);
 					}
 				});
 
 			});
 		</script>';
+		}
 	}
 
 	return $ret;

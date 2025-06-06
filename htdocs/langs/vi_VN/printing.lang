@@ -1,10 +1,10 @@
 # Dolibarr language file - Source file is en_US - printing
-Module64000Name=In trực tiếp
-Module64000Desc=Kích hoạt hệ thống in trực tiếp
-PrintingSetup=Thiết lập hệ thống in trực tiếp
-PrintingDesc=Mô-đun này thêm nút In cho các mô-đun khác nhau để cho phép tài liệu được in trực tiếp đến máy in mà không cần mở tài liệu trong ứng dụng khác.
-MenuDirectPrinting=Công việc in trực tiếp
-DirectPrint=In trực tiếp
+Module64000Name=In bằng một cú nhấp chuột
+Module64000Desc=Kích hoạt hệ thống in bằng một cú nhấp chuột
+PrintingSetup=Thiết lập hệ thống in bằng một cú nhấp chuột
+PrintingDesc=Mô-đun này thêm nút In vào các mô-đun khác nhau để cho phép tài liệu được in trực tiếp tới máy in mà không cần phải mở tài liệu sang ứng dụng khác.
+MenuDirectPrinting=Công việc in ấn chỉ bằng một cú nhấp chuột
+DirectPrint=In bằng một cú nhấp chuột
 PrintingDriverDesc=Các biến cấu hình cho trình điều khiển in.
 ListDrivers=Danh sách trình điều khiển
 PrintTestDesc=Danh sách máy in.

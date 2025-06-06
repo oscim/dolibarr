@@ -1,30 +1,16 @@
 # Dolibarr language file - Source file is en_US - paybox
-PayBoxSetup=PayBox module setup
-PayBoxDesc=This module offer pages to allow payment on <a href="http://www.paybox.com" target="_blank">Paybox</a> by customers. This can be used for a free payment or for a payment on a particular Dolibarr object (invoice, order, ...)
-FollowingUrlAreAvailableToMakePayments=Following URLs are available to offer a page to a customer to make a payment on Dolibarr objects
-PaymentForm=Payment form
-WelcomeOnPaymentPage=Welcome to our online payment service
-ThisScreenAllowsYouToPay=This screen allow you to make an online payment to %s.
-ThisIsInformationOnPayment=This is information on payment to do
-ToComplete=To complete
-YourEMail=Email to receive payment confirmation
-Creditor=Creditor
-PaymentCode=Payment code
-PayBoxDoPayment=Pay with Paybox
-YouWillBeRedirectedOnPayBox=You will be redirected on secured Paybox page to input you credit card information
-Continue=Next
-SetupPayBoxToHavePaymentCreatedAutomatically=Setup your Paybox with url <b>%s</b> to have payment created automatically when validated by Paybox.
-YourPaymentHasBeenRecorded=This page confirms that your payment has been recorded. Thank you.
-YourPaymentHasNotBeenRecorded=Your payment has NOT been recorded and the transaction has been canceled. Thank you.
-AccountParameter=Account parameters
-UsageParameter=Usage parameters
-InformationToFindParameters=Help to find your %s account information
-PAYBOX_CGI_URL_V2=Url of Paybox CGI module for payment
-CSSUrlForPaymentForm=CSS style sheet url for payment form
-NewPayboxPaymentReceived=New Paybox payment received
-NewPayboxPaymentFailed=New Paybox payment tried but failed
-PAYBOX_PAYONLINE_SENDEMAIL=Email notification after payment attempt (success or fail)
-PAYBOX_PBX_SITE=Value for PBX SITE
-PAYBOX_PBX_RANG=Value for PBX Rang
-PAYBOX_PBX_IDENTIFIANT=Value for PBX ID
-PAYBOX_HMAC_KEY=HMAC key
+PayBoxSetup=Танзими модули PayBox
+PayBoxDesc=Ин модул саҳифаҳоеро пешниҳод мекунад, ки ба муштариён пардохт дар <a href="https://www.paybox.com" target="_blank" rel="noopener noreferrer external">Paybox</a> иҷозат диҳад. Ин метавонад барои пардохти ройгон ё пардохт дар объекти мушаххаси Dolibarr (инвойс, фармоиш, ...) истифода шавад.
+PayBoxDoPayment=Бо Paybox пардохт кунед
+YouWillBeRedirectedOnPayBox=Шумо барои ворид кардани маълумоти корти кредитӣ ба саҳифаи боэътимоди Paybox равона карда мешавед
+SetupPayBoxToHavePaymentCreatedAutomatically=Паёмдони худро бо url <b> %s </b> танзим кунед, то пардохт ҳангоми тасдиқи Paybox ба таври худкор эҷод карда шавад.
+YourPaymentHasBeenRecorded=Ин саҳифа тасдиқ мекунад, ки пардохти шумо сабт шудааст. Сипос.
+YourPaymentHasNotBeenRecorded=Пардохти шумо сабт нашудааст ва муомилот бекор карда шудааст. Сипос.
+PAYBOX_CGI_URL_V2=URLи модули Paybox CGI барои пардохт
+NewPayboxPaymentReceived=Пардохти нави Paybox гирифта шуд
+NewPayboxPaymentFailed=Пардохти нави Paybox кӯшиш шуд, аммо ноком шуд
+PAYBOX_PAYONLINE_SENDEMAIL=Огоҳинома тавассути почтаи электронӣ пас аз кӯшиши пардохт (муваффақият ё нокомӣ)
+PAYBOX_PBX_SITE=Арзиш барои PBX SITE
+PAYBOX_PBX_RANG=Арзиши PBX Rang
+PAYBOX_PBX_IDENTIFIANT=Арзиш барои ID PBX
+PAYBOX_HMAC_KEY=Калиди HMAC

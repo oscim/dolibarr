@@ -1,7 +1,7 @@
 # Dolibarr language file - Source file is en_US - donations
 Donation=Пожертвование
 Donations=Пожертвования
-DonationRef= ref. пожертвования
+DonationRef=Пожертвование ссылка.
 Donor=Донор
 AddDonation=Создать пожертование
 NewDonation=Новое пожертвование
@@ -25,11 +25,11 @@ LastModifiedDonations=Последние  %sизмененные пожертв�
 DonationRecipient=Получатель пожертования
 IConfirmDonationReception=Получатель объявляет приём, как пожертвование, в следующем размере
 MinimumAmount=Минимальное пожертвование %s
-FreeTextOnDonations=Текст для показа в нижней части 
+FreeTextOnDonations=Текст для показа в нижней части
 FrenchOptions=Настройки для Франции
 DONATION_ART200=Если вы обеспокоены, показывать выдержку статьи 200 из CGI
 DONATION_ART238=Если вы обеспокоены, показывать выдержку статьи 238 из CGI
-DONATION_ART885=Если вы обеспокоены, показывать выдержку статьи 885 из CGI
+DONATION_ART978=Show article 978 from CGI if you are concerned
 DonationPayment=Платёж пожертвования
-DonationValidated= Пожертвование %s подтверждено
+DonationValidated=Пожертвование %s подтверждено
 DonationUseThirdparties=Использовать существующую стороннюю организацию в качестве координат жертвователей

@@ -4,88 +4,73 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#
 # Generic
-#
-ModulePartnershipName=Partnership management
-PartnershipDescription=Module Partnership management
-PartnershipDescriptionLong= Module Partnership management
-
-AddPartnership=Add partnership
-CancelPartnershipForExpiredMembers=Partnership: Cancel partnership of members with expired subscriptions
-PartnershipCheckBacklink=Partnership: Check referring backlink
-
-#
+ModulePartnershipName=Manajemen kemitraan
+PartnershipDescription=Modul Manajemen kemitraan
+PartnershipDescriptionLong= Modul Manajemen kemitraan
+Partnership=Kemitraan
+Partnerships=Kemitraan
+AddPartnership=Tambahkan kemitraan
+CancelPartnershipForExpiredMembers=Kemitraan: Batalkan kemitraan anggota dengan langganan yang kedaluwarsa
+PartnershipCheckBacklink=Kemitraan: Periksa tautan balik rujukan
 # Menu
-#
-NewPartnership=New Partnership
-ListOfPartnerships=List of partnership
-
-#
+NewPartnership=Kemitraan Baru
+NewPartnershipbyWeb=Permintaan kemitraan Anda telah berhasil ditambahkan. Kami mungkin akan segera menghubungi Anda...
+ListOfPartnerships=Daftar kemitraan
 # Admin page
-#
-PartnershipSetup=Partnership setup
-PartnershipAbout=About Partnership
-PartnershipAboutPage=Partnership about page
-partnershipforthirdpartyormember=Partner status must be set on a 'thirdparty' or a 'member'
-PARTNERSHIP_IS_MANAGED_FOR=Partnership managed for
-PARTNERSHIP_BACKLINKS_TO_CHECK=Backlinks to check
-PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL=Nb of days before cancelling status of a partnership when a subscription has expired
-ReferingWebsiteCheck=Check of website referring
-ReferingWebsiteCheckDesc=You can enable a feature to check that your partners has added a backlink to your website domains on their own website.
-
-#
+PartnershipSetup=Pengaturan kemitraan
+PartnershipAbout=Tentang Kemitraan
+PartnershipAboutPage=Halaman tentang kemitraan
+partnershipforthirdpartyormember=Status mitra harus ditetapkan pada 'pihak ketiga' atau 'anggota'
+PARTNERSHIP_IS_MANAGED_FOR=Kemitraan dikelola untuk
+PARTNERSHIP_BACKLINKS_TO_CHECK=Tautan balik untuk diperiksa
+PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL=Nb hari sebelum membatalkan status kemitraan ketika langganan telah kedaluwarsa
+ReferingWebsiteCheck=Periksa referensi situs web
+ReferingWebsiteCheckDesc=Anda dapat mengaktifkan fitur untuk memeriksa apakah mitra Anda telah menambahkan tautan balik ke domain situs web Anda di situs web mereka sendiri.
+PublicFormRegistrationPartnerDesc=Dolibarr dapat memberi Anda URL/situs web publik yang memungkinkan pengunjung eksternal meminta untuk menjadi bagian dari program kemitraan.
 # Object
-#
-DeletePartnership=Delete a partnership
-PartnershipDedicatedToThisThirdParty=Partnership dedicated to this third party
-PartnershipDedicatedToThisMember=Partnership dedicated to this member
+DeletePartnership=Hapus kemitraan
+PartnershipDedicatedToThisThirdParty=Kemitraan yang didedikasikan untuk pihak ketiga ini
+PartnershipDedicatedToThisMember=Kemitraan yang didedikasikan untuk anggota ini
 DatePartnershipStart=Tanggal mulai
 DatePartnershipEnd=Tanggal Akhir
-ReasonDecline=Decline reason
-ReasonDeclineOrCancel=Decline reason
-PartnershipAlreadyExist=Partnership already exist
-ManagePartnership=Manage partnership
-BacklinkNotFoundOnPartnerWebsite=Backlink not found on partner website
-ConfirmClosePartnershipAsk=Are you sure you want to cancel this partnership?
-PartnershipType=Partnership type
-
-#
-# Template Mail
-#
-SendingEmailOnPartnershipWillSoonBeCanceled=Partnership will soon be canceled
-SendingEmailOnPartnershipRefused=Partnership refused
-SendingEmailOnPartnershipAccepted=Partnership accepted
-SendingEmailOnPartnershipCanceled=Partnership canceled
-
-YourPartnershipWillSoonBeCanceledTopic=Partnership will soon be canceled
-YourPartnershipRefusedTopic=Partnership refused
-YourPartnershipAcceptedTopic=Partnership accepted
-YourPartnershipCanceledTopic=Partnership canceled
-
-YourPartnershipWillSoonBeCanceledContent=We inform you that your partnership will soon be canceled (Backlink not found)
-YourPartnershipRefusedContent=We inform you that your partnership request has been refused.
-YourPartnershipAcceptedContent=We inform you that your partnership request has been accepted.
-YourPartnershipCanceledContent=We inform you that your partnership has been canceled.
-
-CountLastUrlCheckError=Number of errors for last URL check
-LastCheckBacklink=Date of last URL check
-ReasonDeclineOrCancel=Decline reason
-
-#
-# Status
-#
+ReasonDecline=Alasan penolakan
+ReasonDeclineOrCancel=Alasan penolakan atau pembatalan
+PartnershipAlreadyExist=Kemitraan sudah ada
+ManagePartnership=Kelola kemitraan
+BacklinkNotFoundOnPartnerWebsite=Tautan balik tidak ditemukan di situs web mitra
+ConfirmClosePartnershipAsk=Anda yakin ingin membatalkan kemitraan ini?
+PartnershipType=Jenis kemitraan
+PartnershipRefApproved=Kemitraan %s disetujui
+KeywordToCheckInWebsite=Jika Anda ingin memeriksa apakah kata kunci tertentu ada di situs web masing-masing mitra, tentukan kata kunci ini di sini
 PartnershipDraft=Konsep
-PartnershipAccepted=Accepted
+PartnershipAccepted=Diterima
 PartnershipRefused=Ditolak
 PartnershipCanceled=Dibatalkan
-PartnershipManagedFor=Partners are
+PartnershipManagedFor=Mitra adalah
+# Template Mail
+SendingEmailOnPartnershipWillSoonBeCanceled=Kemitraan akan segera dibatalkan
+SendingEmailOnPartnershipRefused=Kemitraan ditolak
+SendingEmailOnPartnershipAccepted=Kemitraan diterima
+SendingEmailOnPartnershipCanceled=Kemitraan dibatalkan
+YourPartnershipWillSoonBeCanceledTopic=Kemitraan akan segera dibatalkan
+YourPartnershipRefusedTopic=Kemitraan ditolak
+YourPartnershipAcceptedTopic=Kemitraan diterima
+YourPartnershipCanceledTopic=Kemitraan dibatalkan
+YourPartnershipWillSoonBeCanceledContent=Kami ingin menginformasikan kepada Anda bahwa kemitraan kami akan segera dibatalkan (kami tidak mendapatkan perpanjangan atau prasyarat untuk kemitraan kami belum terpenuhi). Silakan hubungi kami jika Anda menerima ini karena kesalahan.
+YourPartnershipRefusedContent=Kami ingin memberi tahu Anda bahwa permintaan kemitraan Anda telah ditolak. Prasyarat belum terpenuhi. Silakan hubungi kami jika Anda memerlukan informasi lebih lanjut.
+YourPartnershipAcceptedContent=Kami ingin memberi tahu Anda bahwa permintaan kemitraan Anda telah diterima.
+YourPartnershipCanceledContent=Kami ingin memberi tahu Anda bahwa kemitraan kami telah dibatalkan. Silakan hubungi kami jika Anda memerlukan informasi lebih lanjut.
+CountLastUrlCheckError=Jumlah kesalahan untuk pemeriksaan URL terakhir
+LastCheckBacklink=Tanggal pemeriksaan URL terakhir
+NewPartnershipRequest=Permintaan kemitraan baru
+NewPartnershipRequestDesc=This form allows you to request to be part of one of our partnership program. If you need help to fill this form, please contact by email <b>%s</b>.
+ThisUrlMustContainsAtLeastOneLinkToWebsite=Halaman ini harus berisi setidaknya satu tautan ke salah satu domain berikut: %s
+IPOfApplicant=IP pemohon

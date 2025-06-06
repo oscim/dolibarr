@@ -1,6 +1,7 @@
 <?php
 /* Copyright (C) 2019       Maxime Kohlhaas         <maxime@atm-consulting.fr>
- * Copyright (C) 2019-2021  Frédéric France         <frederic.france@netlogic.fr>
+ * Copyright (C) 2019-2023  Frédéric France         <frederic.france@netlogic.fr>
+ * Copyright (C) 2024		MDW						<mdeweerd@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,11 +26,16 @@
 /**
  * Prepare admin pages header
  *
- * @return array
+ * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
 function bomAdminPrepareHead()
 {
 	global $langs, $conf;
+
+	global $db;
+	$extrafields = new ExtraFields($db);
+	$extrafields->fetch_name_optionals_label('bom_bom');
+	$extrafields->fetch_name_optionals_label('bom_bomline');
 
 	$langs->load("mrp");
 
@@ -43,7 +49,20 @@ function bomAdminPrepareHead()
 
 	$head[$h][0] = DOL_URL_ROOT."/admin/bom_extrafields.php";
 	$head[$h][1] = $langs->trans("ExtraFields");
+	$nbExtrafields = is_countable($extrafields->attributes['bom_bom']['label']) ? count($extrafields->attributes['bom_bom']['label']) : 0;
+	if ($nbExtrafields > 0) {
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
+	}
 	$head[$h][2] = 'bom_extrafields';
+	$h++;
+
+	$head[$h][0] = DOL_URL_ROOT."/admin/bomline_extrafields.php";
+	$head[$h][1] = $langs->trans("ExtraFieldsLines");
+	$nbExtrafields = is_countable($extrafields->attributes['bom_bomline']['label']) ? count($extrafields->attributes['bom_bomline']['label']) : 0;
+	if ($nbExtrafields > 0) {
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
+	}
+	$head[$h][2] = 'bomline_extrafields';
 	$h++;
 
 	// Show more tabs from modules
@@ -56,7 +75,7 @@ function bomAdminPrepareHead()
 	//); // to remove a tab
 	complete_head_from_modules($conf, $langs, null, $head, $h, 'bom@mrp');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'bom@mrp', 'remove');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'bom@mrp', 'remove');
 
 	return $head;
 }
@@ -68,7 +87,7 @@ function bomAdminPrepareHead()
  * Prepare array of tabs for BillOfMaterials
  *
  * @param	BOM	      $object		BillOfMaterials
- * @return 	array					Array of tabs
+ * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
 function bomPrepareHead($object)
 {
@@ -84,6 +103,11 @@ function bomPrepareHead($object)
 	$head[$h][2] = 'card';
 	$h++;
 
+	$head[$h][0] = DOL_URL_ROOT."/bom/bom_net_needs.php?id=".$object->id;
+	$head[$h][1] = $langs->trans("BOMNetNeeds");
+	$head[$h][2] = 'net_needs';
+	$h++;
+
 	if (isset($object->fields['note_public']) || isset($object->fields['note_private'])) {
 		$nbNote = 0;
 		if (!empty($object->note_private)) {
@@ -95,7 +119,7 @@ function bomPrepareHead($object)
 		$head[$h][0] = DOL_URL_ROOT.'/bom/bom_note.php?id='.$object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
-			$head[$h][1] .= (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER) ? '<span class="badge marginleftonlyshort">'.$nbNote.'</span>' : '');
+			$head[$h][1] .= (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') ? '<span class="badge marginleftonlyshort">'.$nbNote.'</span>' : '');
 		}
 		$head[$h][2] = 'note';
 		$h++;
@@ -103,13 +127,13 @@ function bomPrepareHead($object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->bom->dir_output."/bom/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $conf->bom->dir_output."/".dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT.'/bom/bom_document.php?id='.$object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) {
-		$head[$h][1] .= (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER) ? '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>' : '');
+		$head[$h][1] .= (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') ? '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>' : '');
 	}
 	$head[$h][2] = 'document';
 	$h++;
@@ -129,5 +153,69 @@ function bomPrepareHead($object)
 	//); // to remove a tab
 	complete_head_from_modules($conf, $langs, $object, $head, $h, 'bom');
 
+	complete_head_from_modules($conf, $langs, $object, $head, $h, 'bom', 'remove');
+
 	return $head;
+}
+
+/**
+ * Manage collapse bom display
+ *
+ * @return void
+ */
+function mrpCollapseBomManagement()
+{
+	?>
+
+	<script type="text/javascript" language="javascript">
+
+		$(document).ready(function () {
+			function folderManage(element, onClose = 0) {
+				let id_bom_line = element.attr('id').replace('collapse-', '');
+				let TSubLines = $('[parentid="'+ id_bom_line +'"]');
+
+				if(element.html().indexOf('folder-open') <= 0 && onClose < 1) {
+					$('[parentid="'+ id_bom_line +'"]').show();
+					element.html('<?php echo dol_escape_js(img_picto('', 'folder-open')); ?>');
+				}
+				else {
+					for (let i = 0; i < TSubLines.length; i++) {
+						let subBomFolder = $(TSubLines[i]).children('.linecoldescription').children('.collapse_bom');
+
+						if (subBomFolder.length > 0) {
+							onClose = 1
+							folderManage(subBomFolder, onClose);
+						}
+					}
+					TSubLines.hide();
+					element.html('<?php echo dol_escape_js(img_picto('', 'folder')); ?>');
+				}
+			}
+
+			// When clicking on collapse
+			$(".collapse_bom").click(function() {
+				folderManage($(this));
+				return false;
+			});
+
+			// To Show all the sub bom lines
+			$("#show_all").click(function() {
+				console.log("We click on show all");
+				$("[class^=sub_bom_lines]").show();
+				$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picto('', 'folder-open')); ?>');
+				return false;
+			});
+
+			// To Hide all the sub bom lines
+			$("#hide_all").click(function() {
+				console.log("We click on hide all");
+				$("[class^=sub_bom_lines]").hide();
+				$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picto('', 'folder')); ?>');
+				return false;
+			});
+		});
+
+	</script>
+
+	<?php
 }

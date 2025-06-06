@@ -5,145 +5,158 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#
 # Generic
-#
 ModuleEventOrganizationName = 活動組織
 EventOrganizationDescription = 使用專案模組組織活動
-EventOrganizationDescriptionLong= 使用公共訂閱頁面管理會議、與會者、演講者和與會者的組織活動
-#
-# Menu
-#
-EventOrganizationMenuLeft = Organized events
+EventOrganizationDescriptionLong= 管理活動的組織（節目、會議、參與者或演講者，以及用於建議、投票或註冊的公共頁面）
+EventOrganizationMenuLeft = 已組織的活動
 EventOrganizationConferenceOrBoothMenuLeft = 會議或展位
-
-#
+PaymentEvent=活動的付款
+EventFee=Event fee
 # Admin page
-#
-EventOrganizationSetup = 活動組織設定
-Settings = 設定
+NewRegistration=登記
+EventOrganizationSetup=活動組織設定
+EventOrganization=活動組織
 EventOrganizationSetupPage = 活動組織設定頁面
 EVENTORGANIZATION_TASK_LABEL = 當專案驗證時自動地建立任務標籤
-EVENTORGANIZATION_TASK_LABELTooltip = When you validate an organized event, some tasks can be automatically created in the project<br><br>For example: <br>Send Call for Conference<br>Send Call for Booth<br>Receive call for conferences<br>Receive call for Booth<br>Open subscriptions to events for attendees<br>Send remind of event to speakers<br>Send remind of event to Booth hoster<br>Send remind of event to attendees
-EVENTORGANIZATION_CATEG_THIRDPARTY_CONF = Category to add to third-parties automatically created when someone suggests a conference
-EVENTORGANIZATION_CATEG_THIRDPARTY_BOOTH = Category to add to third-parties automatically created when they suggests a booth
-EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_CONF = Template of email to send after receiving a suggestion of a conference.
-EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_BOOTH = Template of email to send after receiving a suggestion of a booth.
-EVENTORGANIZATION_TEMPLATE_EMAIL_AFT_SUBS_BOOTH = Template of email to send  after a subscription to a booth has been paid.
-EVENTORGANIZATION_TEMPLATE_EMAIL_AFT_SUBS_EVENT = Template of email to send after a subscription to an event has been paid.
-EVENTORGANIZATION_TEMPLATE_EMAIL_BULK_SPEAKER = Template of email of massaction to attendes
-EVENTORGANIZATION_TEMPLATE_EMAIL_BULK_ATTENDES = Template of email of massaction to speakers
-EVENTORGANIZATION_FILTERATTENDEES_CAT = Filter thirdpartie's select list in attendees creation card/form with category
-EVENTORGANIZATION_FILTERATTENDEES_TYPE = Filter thirdpartie's select list in attendees creation card/form with customer type
-
-#
+EVENTORGANIZATION_TASK_LABELTooltip = 當您驗證一個有組織的活動，有些任務可以自動在專案中建立<br> <br>例如：<br>發送會議呼叫<br>發送展位呼叫<br>驗證建議會議<br>驗證展位應用<br>為參與者打開訂閱活動<br>向演講者發送活動提醒 <br> 向展位主持人發送活動提醒 <br> 向與會者發送活動提醒
+EVENTORGANIZATION_TASK_LABELTooltip2=如果您不需要自動建立任務，請留空。
+EVENTORGANIZATION_CATEG_THIRDPARTY_CONF = 有人建議會議時自動建立增加到合作方的類別
+EVENTORGANIZATION_CATEG_THIRDPARTY_BOOTH = 當合作方推薦展位時自動建立增加到合作方的類別
+EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_CONF = 收到會議建議後要發送的電子郵件模板。
+EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_BOOTH = 收到展位建議後要發送的電子郵件模板。
+EVENTORGANIZATION_TEMPLATE_EMAIL_AFT_SUBS_BOOTH = 支付展位註冊費用後發送的電子郵件模板。
+EVENTORGANIZATION_TEMPLATE_EMAIL_AFT_SUBS_EVENT = 支付報名費後發送的電子郵件模板。
+EVENTORGANIZATION_TEMPLATE_EMAIL_BULK_SPEAKER = 用於向演講者批次"發送電子郵件"使的電子郵件模板
+EVENTORGANIZATION_TEMPLATE_EMAIL_BULK_ATTENDES = 用於向參與者批次"發送電子郵件"使的電子郵件模板
+EVENTORGANIZATION_FILTERATTENDEES_CAT = 使用表單建立/增加參與者,將清單限制於合作方類別中的合作方
+EVENTORGANIZATION_FILTERATTENDEES_TYPE = 使用表單建立/增加參與者,將清單限制於合作方類別中的合作方類型
 # Object
-#
+OrganizedEvent=Organized event
 EventOrganizationConfOrBooth= 會議或展位
-ManageOrganizeEvent = Manage event organisation
+EventOrganizationConfOrBoothes=Conferences or Booths
+ManageOrganizeEvent = 管理活動的組織
 ConferenceOrBooth = 會議或展位
 ConferenceOrBoothTab = 會議或展位
-AmountOfSubscriptionPaid = 已支付訂閱金額
-DateSubscription = 訂閱日期
+AmountPaid = 付款金額
+DateOfRegistration = 註冊日期
 ConferenceOrBoothAttendee = 會議或展位參加者
-
-#
+ApplicantOrVisitor=Applicant or visitor
+Speaker=Speaker
 # Template Mail
-#
 YourOrganizationEventConfRequestWasReceived = 已收到您的會議請求
 YourOrganizationEventBoothRequestWasReceived = 已收到您的展位申請
-EventOrganizationEmailAskConf = Request for conference
-EventOrganizationEmailAskBooth = Request for booth
-EventOrganizationEmailSubsBooth = Subscription for booth
-EventOrganizationEmailSubsEvent = Subscription for an event
-EventOrganizationMassEmailAttendees = Communication to attendees
-EventOrganizationMassEmailSpeakers = Communication to speakers
-
-#
+EventOrganizationEmailAskConf = 申請會議
+EventOrganizationEmailAskBooth = 申請展位
+EventOrganizationEmailBoothPayment = 展位付款
+EventOrganizationEmailRegistrationPayment = 活動報名
+EventOrganizationMassEmailAttendees = 與參與者交流
+EventOrganizationMassEmailSpeakers = 與演講者交流
+ToSpeakers=致演講者
 # Event
-#
-AllowUnknownPeopleSuggestConf=Allow unknown people to suggest conferences
-AllowUnknownPeopleSuggestConfHelp=Allow unknown people to suggest conferences
-AllowUnknownPeopleSuggestBooth=Allow unknown people to suggest booth
-AllowUnknownPeopleSuggestBoothHelp=Allow unknown people to suggest booth
-PriceOfRegistration=Price of registration
-PriceOfRegistrationHelp=Price of registration
-PriceOfBooth=Subscription price to stand a booth
-PriceOfBoothHelp=Subscription price to stand a booth
-EventOrganizationICSLink=Link ICS for events
-ConferenceOrBoothInformation=Conference Or Booth informations
-Attendees = Attendees
-DownloadICSLink = Download ICS link
-EVENTORGANIZATION_SECUREKEY = Secure Key of the public registration link to a conference
-SERVICE_BOOTH_LOCATION = Service used for the invoice row about a booth location
-SERVICE_CONFERENCE_ATTENDEE_SUBSCRIPTION = Service used for the invoice row about an attendee subscription to a conference
-NbVotes=Number of votes
-#
+AllowUnknownPeopleSuggestConf=允許建議會議
+AllowUnknownPeopleSuggestConfHelp=允許不知名的人建議他們想參加的會議
+AllowUnknownPeopleSuggestBooth=允許申請展位
+AllowUnknownPeopleSuggestBoothHelp=允許不知名人士申請展位
+PriceOfRegistration=註冊價格
+PriceOfRegistrationHelp=註冊或參加活動的費用
+PriceOfBooth=展位認購價
+PriceOfBoothHelp=展位認購價
+EventOrganizationICSLinkProject=Link ICS for the event
+EventOrganizationICSLink=連結會議的ICS
+ConferenceOrBoothInformation=Conference Or Booth information
+ConferenceOrBoothFormat=Conference or booth mode
+ConferenceOrBoothFormatID=ID of conference or booth mode
+ConferenceOrBoothFormatCode=Code of conference or booth mode
+ConferenceOrBoothFormatLabel=Label of conference or booth mode
+Attendees=參與者
+ListOfAttendeesOfEvent=List of attendees of event projects
+ListOfConfOrBoothOfEvent=List of conferences or booths of event projects
+DownloadICSLink = 下載 ICS連結
+EVENTORGANIZATION_SECUREKEY = 用於建議會議之公共註冊頁面安全金鑰種子
+SERVICE_BOOTH_LOCATION = 關於展位位置發票行的服務
+SERVICE_CONFERENCE_ATTENDEE_SUBSCRIPTION = 關於參與者訂閱會議發票行的服務
+NbVotes=票數
 # Status
-#
 EvntOrgDraft = 草稿
-EvntOrgSuggested = Suggested
-EvntOrgConfirmed = Confirmed
-EvntOrgNotQualified = Not Qualified
+EvntOrgSuggested = 已建議
+EvntOrgConfirmed = 已確認
+EvntOrgNotQualified = 不合格
 EvntOrgDone = 完成
-EvntOrgCancelled = Cancelled
-#
-# Public page
-#
-SuggestForm = Suggestion page
-RegisterPage = Page for conferences or booth
-EvntOrgRegistrationHelpMessage = Here, you can vote for an event, or suggest a new conference or booth for the project
-EvntOrgRegistrationConfHelpMessage = Here, you can suggest a new conference for the project
-EvntOrgRegistrationBoothHelpMessage = Here, you can suggest a new booth for the project
-ListOfSuggestedConferences = List of suggested conferences
-ListOfSuggestedBooths = List of suggested booths
-SuggestConference = Suggest a new conference
-SuggestBooth = Suggest a booth
-ViewAndVote = View and vote for suggested events
-PublicAttendeeSubscriptionPage = Public link of registration to a conference
-MissingOrBadSecureKey = The security key is invalid or missing
-EvntOrgWelcomeMessage = This form allows you to register as a new participant to the conference : '%s'
-EvntOrgDuration = This conference starts on %s and ends on %s.
-ConferenceAttendeeFee = Conference attendee fee for the event : '%s' occurring from %s to %s.
-BoothLocationFee = Booth location for the event : '%s' occurring from %s to %s
-EventType = 事件類別
-LabelOfBooth=Booth label
-LabelOfconference=Conference label
-ConferenceIsNotConfirmed=Subcription not available, conference is not confirmed yet
-DateMustBeBeforeThan=%s must be before %s
-DateMustBeAfterThan=%s must be after %s
-
-#
-# Vote page
-#
-EvntOrgRegistrationWelcomeMessage = Welcome on the conference or booth suggestion page.
-EvntOrgRegistrationConfWelcomeMessage = Welcome on the conference suggestion page.
-EvntOrgRegistrationBoothWelcomeMessage = Welcome on the booth suggestion page.
-EvntOrgVoteHelpMessage = Here, you can view and vote for the suggested events for the project
-VoteOk = Your vote has been accepted.
-AlreadyVoted = You have already voted for this event.
-VoteError = An error has occurred during the vote, please try again.
-
-#
-# SubscriptionOk page
-#
-SubscriptionOk = Your subscription to this conference has been validated
-#
-# Subscription validation mail
-#
-ConfAttendeeSubscriptionConfirmation = Confirmation of your subscription to a conference
-#
-# Payment page
-#
-Attendee = Attendee
-PaymentConferenceAttendee = Conference attendee payment
-PaymentBoothLocation = Booth location payment
+EvntOrgCancelled = 已取消
+# Other
+SuggestForm = 建議頁面
+SuggestOrVoteForConfOrBooth = 建議或投票頁面
+EvntOrgRegistrationHelpMessage = 在這裡，您可以為會議投票或為活動推薦新的會議。您也可以在活動期間申請展位。
+EvntOrgRegistrationConfHelpMessage = 在這裡，您可以在活動期間鼓勵建議一個新的會議。
+EvntOrgRegistrationBoothHelpMessage = 在這裡，您可以在活動期間申請展位。
+ListOfSuggestedConferences = 建議會議清單
+ListOfSuggestedBooths=Suggested booths
+ListOfConferencesOrBooths=Conferences or booths of event project
+SuggestConference = 建議召開新會議
+SuggestBooth = 建議展位
+ViewAndVote = 查看和票選建議的活動
+PublicAttendeeSubscriptionGlobalPage = 活動報名公開連結
+PublicAttendeeSubscriptionPage = 僅用於報名此活動的公共連結
+MissingOrBadSecureKey = 安全金鑰無效或遺失
+EvntOrgWelcomeMessage = This form allows you to register as a new participant to the event
+EvntOrgDuration = 本次會議從 %s 開始，到 %s 結束。
+ConferenceAttendeeFee = 活動的會議參與者費用："%s"為從%s 到%s發生的。
+BoothLocationFee = 活動展位位置："%s"為從%s 到%s發生的。
+EventType = 活動類別
+LabelOfBooth=展位標籤
+LabelOfconference=會議標籤
+ConferenceIsNotConfirmed=無法註冊，會議尚未確認
+EventRegistrationAreClosed=Event registrations are closed
+DateMustBeBeforeThan=%s 必須在 %s 之前
+DateMustBeAfterThan=%s 必須在 %s 之後
+MaxNbOfAttendeesReached=The maximum number of participants has been reached
+NewSubscription=登記
+OrganizationEventConfRequestWasReceived=您的會議建議已收到
+OrganizationEventBoothRequestWasReceived=您的展位申請已收到
+OrganizationEventPaymentOfBoothWasReceived=您的展位付款已被記錄
+OrganizationEventPaymentOfRegistrationWasReceived=您的活動註冊付款已被記錄
+OrganizationEventBulkMailToAttendees=這是關於您作為參與者參與活動的提醒
+OrganizationEventBulkMailToSpeakers=這是對您作為演講者參與活動的提醒
+OrganizationEventLinkToThirdParty=連結到合作方（客戶、供應商或合作夥伴）
+OrganizationEvenLabelName=Public name of the conference or booth
+NewSuggestionOfBooth=申請展位
+NewSuggestionOfConference=Application to hold a conference
+EvntOrgRegistrationWelcomeMessage = 歡迎來到會議或展位建議頁面。
+EvntOrgRegistrationConfWelcomeMessage = 歡迎來到會議建議頁面。
+EvntOrgRegistrationBoothWelcomeMessage = 歡迎來到展位建議頁面。
+EvntOrgVoteHelpMessage = 在這裡，您可以查看專案的建議活動並投票
+VoteOk = 您的投票已被接受。
+AlreadyVoted = 您已經為此事件投票。
+VoteError = 投票時發生錯誤，請重試。
+SubscriptionOk=Your registration has been recorded
+AmountOfRegistrationPaid=Amount of registration paid
+ConfAttendeeSubscriptionConfirmation = 確認您的活動訂閱
+Attendee = 參加者
+PaymentConferenceAttendee = 參與人員繳費
+PaymentBoothLocation = 展位支付
+DeleteConferenceOrBoothAttendee=刪除參與者
+RegistrationAndPaymentWereAlreadyRecorder=已記錄電子郵件 <b> %s </b> 的註冊和付款
+EmailAttendee=參與者電子郵件
+EmailCompany=Company email
+EmailCompanyForInvoice=公司電子郵件（用於發票，如果與參與者電子郵件不同）
+ErrorSeveralCompaniesWithEmailContactUs=Several companies with this email has been found so we can't validate automatically your registration. Please contact us at %s for a manual validation
+ErrorSeveralCompaniesWithNameContactUs=Several companies with this name has been found so we can't validate automatically your registration. Please contact us at %s for a manual validation
+NoPublicActionsAllowedForThisEvent=本次活動不對外公開任何公開活動
+MaxNbOfAttendees=參加人數上限
+DateStartEvent=Event start date
+DateEndEvent=Event end date
+ModifyStatus=Modify status
+ConfirmModifyStatus=Confirm status modification
+ConfirmModifyStatusQuestion=Are you sure you want to modify the %s selected record(s)?
+RecordsUpdated=%s Records updated
+RecordUpdated=Record updated
+NoRecordUpdated=No Record updated
+ProfitPerValidatedAttendee=Profit per attendee

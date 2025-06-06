@@ -6,6 +6,7 @@ TotalMargin=Jami marj
 MarginOnProducts=Marj / Mahsulotlar
 MarginOnServices=Marj / xizmatlar
 MarginRate=Marj darajasi
+ModifyMarginRates=Marja stavkalarini o'zgartirish
 MarkRate=Belgilangan stavka
 DisplayMarginRates=Marj stavkalarini ko'rsatish
 DisplayMarkRates=Belgilash stavkalarini ko'rsatish
@@ -22,7 +23,7 @@ ProductService=Mahsulot yoki xizmat
 AllProducts=Barcha mahsulotlar va xizmatlar
 ChooseProduct/Service=Mahsulot yoki xizmatni tanlang
 ForceBuyingPriceIfNull=Agar aniqlanmagan bo'lsa, sotib olish / tannarxni sotish narxiga majburlang
-ForceBuyingPriceIfNullDetails=Agar biz yangi qator qo'shganimizda sotib olish / tannarxi taqdim etilmasa va ushbu parametr "ON" bo'lsa, margin yangi satrda 0 ga teng bo'ladi (sotib olish / tannarx narxi = sotish narxi). Agar ushbu parametr "OFF" bo'lsa (tavsiya etiladi), margin sukut bo'yicha taklif qilingan qiymatga teng bo'ladi (va agar standart qiymat topilmasa, 100% bo'lishi mumkin).
+ForceBuyingPriceIfNullDetails=Agar biz yangi qatorni qo'shganimizda sotib olish/tannarx bahosi ko'rsatilmagan bo'lsa va bu parametr "ON" bo'lsa, marja yangi satrda 0%% bo'ladi (sotib olish/tannarx = sotish narxi). Agar bu parametr "O'chirilgan" bo'lsa (tavsiya etiladi), marj sukut bo'yicha taklif qilingan qiymatga teng bo'ladi (agar standart qiymat topilmasa, 100%% bo'lishi mumkin).
 MARGIN_METHODE_FOR_DISCOUNT=Global chegirmalar uchun margin usuli
 UseDiscountAsProduct=Mahsulot sifatida
 UseDiscountAsService=Xizmat sifatida
@@ -37,7 +38,7 @@ CostPrice=Xarajat narxi
 UnitCharges=Birlik uchun to'lovlar
 Charges=To'lovlar
 AgentContactType=Tijorat agentining aloqa turi
-AgentContactTypeDetails=Kontakt / manzil bo'yicha margin hisoboti uchun qanday aloqa turini (hisob-fakturalarda bog'langan) ishlatilishini aniqlang. Kontakt bo'yicha statistik ma'lumotlarni o'qish ishonchli emasligiga e'tibor bering, chunki aksariyat hollarda hisob-fakturalarda aloqa aniq belgilanmasligi mumkin.
+AgentContactTypeDetails=Har bir kontakt/manzil uchun marja hisoboti uchun qaysi kontakt turini (hisob-kitoblarda bog'langan) ishlatishini belgilang. E'tibor bering, kontakt bo'yicha statistikani o'qish ishonchli emas, chunki ko'p hollarda kontakt fakturalarda aniq belgilanmasligi mumkin.
 rateMustBeNumeric=Narx raqamli qiymat bo'lishi kerak
 markRateShouldBeLesserThan100=Belgilanish darajasi 100 dan past bo'lishi kerak
 ShowMarginInfos=Margin ma'lumotlarini ko'rsatish

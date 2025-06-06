@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) ---Put here your own copyright and developer email---
+/* Copyright (C) ---Replace with your own copyright and developer email---
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,11 +24,15 @@
 /**
  * Prepare admin pages header
  *
- * @return array
+ * @return array<array{string,string,string}>
  */
 function mymoduleAdminPrepareHead()
 {
 	global $langs, $conf;
+
+	// global $db;
+	// $extrafields = new ExtraFields($db);
+	// $extrafields->fetch_name_optionals_label('myobject');
 
 	$langs->load("mymodule@mymodule");
 
@@ -43,7 +47,20 @@ function mymoduleAdminPrepareHead()
 	/*
 	$head[$h][0] = dol_buildpath("/mymodule/admin/myobject_extrafields.php", 1);
 	$head[$h][1] = $langs->trans("ExtraFields");
+	$nbExtrafields = is_countable($extrafields->attributes['myobject']['label']) ? count($extrafields->attributes['myobject']['label']) : 0;
+	if ($nbExtrafields > 0) {
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
+	}
 	$head[$h][2] = 'myobject_extrafields';
+	$h++;
+
+	$head[$h][0] = dol_buildpath("/mymodule/admin/myobjectline_extrafields.php", 1);
+	$head[$h][1] = $langs->trans("ExtraFieldsLines");
+	$nbExtrafields = is_countable($extrafields->attributes['myobjectline']['label']) ? count($extrafields->attributes['myobject']['label']) : 0;
+	if ($nbExtrafields > 0) {
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
+	}
+	$head[$h][2] = 'myobject_extrafieldsline';
 	$h++;
 	*/
 
@@ -62,7 +79,7 @@ function mymoduleAdminPrepareHead()
 	//); // to remove a tab
 	complete_head_from_modules($conf, $langs, null, $head, $h, 'mymodule@mymodule');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'mymodule@mymodule', 'remove');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'mymodule@mymodule', 'remove');
 
 	return $head;
 }

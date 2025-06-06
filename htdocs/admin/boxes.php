@@ -1,8 +1,10 @@
 <?php
 /* Copyright (C) 2003-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2022 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@inodbox.com>
  * Copyright (C) 2015       Jean-François Ferry		<jfefe@aternatik.fr>
+ * Copyright (C) 2024-2025	MDW						<mdeweerd@users.noreply.github.com>
+ * Copyright (C) 2024		Frédéric France			<frederic.france@free.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,10 +25,19 @@
  *   \brief      Page to setup boxes
  */
 
+// Load Dolibarr environment
 require '../main.inc.php';
 include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/infobox.class.php';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var HookManager $hookmanager
+ * @var Translate $langs
+ * @var User $user
+ */
 
 // Load translation files required by the page
 $langs->loadLangs(array('admin', 'boxes', 'accountancy'));
@@ -35,7 +46,7 @@ if (!$user->admin) {
 	accessforbidden();
 }
 
-$rowid = GETPOST('rowid', 'int');
+$rowid = GETPOSTINT('rowid');
 $action = GETPOST('action', 'aZ09');
 
 
@@ -49,7 +60,6 @@ $boxes = array();
  */
 
 if ($action == 'addconst') {
-	dolibarr_set_const($db, "MAIN_BOXES_MAXLINES", GETPOST("MAIN_BOXES_MAXLINES", 'int'), '', 0, '', $conf->entity);
 	dolibarr_set_const($db, "MAIN_ACTIVATE_FILECACHE", GETPOST("MAIN_ACTIVATE_FILECACHE", 'alpha'), 'chaine', 0, '', $conf->entity);
 }
 
@@ -164,10 +174,10 @@ if ($action == 'switch') {
 	$db->begin();
 
 	$objfrom = new ModeleBoxes($db);
-	$objfrom->fetch(GETPOST("switchfrom", 'int'));
+	$objfrom->fetch(GETPOSTINT("switchfrom"));
 
 	$objto = new ModeleBoxes($db);
-	$objto->fetch(GETPOST('switchto', 'int'));
+	$objto->fetch(GETPOSTINT('switchto'));
 
 	$resultupdatefrom = 0;
 	$resultupdateto = 0;
@@ -175,9 +185,9 @@ if ($action == 'switch') {
 		$newfirst = $objto->box_order;
 		$newsecond = $objfrom->box_order;
 		if ($newfirst == $newsecond) {
-			 $newsecondchar = preg_replace('/[0-9]+/', '', $newsecond);
-			 $newsecondnum = preg_replace('/[a-zA-Z]+/', '', $newsecond);
-			 $newsecond = sprintf("%s%02d", $newsecondchar ? $newsecondchar : 'A', $newsecondnum + 1);
+			$newsecondchar = preg_replace('/[0-9]+/', '', $newsecond);
+			$newsecondnum = (int) preg_replace('/[a-zA-Z]+/', '', $newsecond);
+			$newsecond = sprintf("%s%02d", $newsecondchar ? $newsecondchar : 'A', $newsecondnum + 1);
 		}
 
 		$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order='".$db->escape($newfirst)."' WHERE rowid=".((int) $objfrom->rowid);
@@ -209,11 +219,12 @@ if ($action == 'switch') {
 
 $form = new Form($db);
 
-llxHeader('', $langs->trans("Boxes"));
+llxHeader('', $langs->trans("Boxes"), '', '', 0, 0, '', '', '', 'mod-admin page-boxes');
 
 print load_fiche_titre($langs->trans("Boxes"), '', 'title_setup');
 
 print '<span class="opacitymedium">'.$langs->trans("BoxesDesc")." ".$langs->trans("OnlyActiveElementsAreShown")."</span><br>\n";
+print '<br>';
 
 /*
  * Search for the default active boxes for each possible position
@@ -229,6 +240,7 @@ $sql .= " WHERE b.box_id = bd.rowid";
 $sql .= " AND b.entity IN (0,".$conf->entity.")";
 $sql .= " AND b.fk_user=0";
 $sql .= " ORDER by b.position, b.box_order";
+//print $sql;
 
 dol_syslog("Search available boxes", LOG_DEBUG);
 $resql = $db->query($sql);
@@ -300,13 +312,12 @@ $boxtoadd = InfoBox::listBoxes($db, 'available', -1, null, $actives);
 // Activated boxes
 $boxactivated = InfoBox::listBoxes($db, 'activated', -1, null);
 
-print "<br>\n";
-print "\n\n".'<!-- Boxes Available -->'."\n";
-print load_fiche_titre($langs->trans("BoxesAvailable"), '', '');
-
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">'."\n";
 print '<input type="hidden" name="token" value="'.newToken().'">'."\n";
 print '<input type="hidden" name="action" value="add">'."\n";
+
+
+print '<br>';
 
 print '<div class="div-table-responsive-no-min">';
 print '<table class="tagtable liste centpercent">'."\n";
@@ -315,9 +326,12 @@ print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Box").'</td>';
 print '<td>'.$langs->trans("Note").'/'.$langs->trans("Parameters").'</td>';
 print '<td></td>';
-print '<td width="160" class="center">'.$langs->trans("ActivatableOn").'</td>';
-print "</tr>\n";
+print '<td class="center" width="160">'.$langs->trans("ActivatableOn").'</td>';
+print '<td class="center" width="60" colspan="2">'.$langs->trans("PositionByDefault").'</td>';
+print '<td class="center" width="80">'.$langs->trans("Disable").'</td>';
+print '</tr>'."\n";
 
+print "\n\n".'<!-- Boxes Available -->'."\n";
 foreach ($boxtoadd as $box) {
 	if (preg_match('/^([^@]+)@([^@]+)$/i', $box->boximg)) {
 		$logo = $box->boximg;
@@ -326,8 +340,8 @@ foreach ($boxtoadd as $box) {
 	}
 
 	print "\n".'<!-- Box '.$box->boxcode.' -->'."\n";
-	print '<tr class="oddeven">'."\n";
-	print '<td>'.img_object("", $logo, 'height="14px"').' '.$langs->transnoentitiesnoconv($box->boxlabel);
+	print '<tr class="oddeven" style="height:3em !important;">'."\n";
+	print '<td class="tdoverflowmax300" title="'.dol_escape_htmltag($langs->transnoentitiesnoconv($box->boxlabel)).'">'.img_object("", $logo, 'class="pictofixedwidth" height="14px"').' '.$langs->transnoentitiesnoconv($box->boxlabel);
 	if (!empty($box->class) && preg_match('/graph_/', $box->class)) {
 		print img_picto('', 'graph', 'class="paddingleft"');
 	}
@@ -339,12 +353,12 @@ foreach ($boxtoadd as $box) {
 		}
 	}
 	print '</td>'."\n";
-	print '<td>';
+	print '<td class="tdoverflowmax300" title="'.dol_escape_htmltag($box->note).'">';
 	if ($box->note == '(WarningUsingThisBoxSlowDown)') {
 		$langs->load("errors");
 		print $langs->trans("WarningUsingThisBoxSlowDown");
 	} else {
-		print ($box->note ? $box->note : '&nbsp;');
+		print($box->note ? $box->note : '&nbsp;');
 	}
 	print '</td>'."\n";
 	print '<td>';
@@ -353,39 +367,24 @@ foreach ($boxtoadd as $box) {
 
 	// For each possible position, an activation link is displayed if the box is not already active for that position
 	print '<td class="center">';
-	print $form->selectarray("boxid[".$box->box_id."][pos]", $arrayofhomepages, -1, 1, 0, 0, '', 1)."\n";
+	print $form->selectarray("boxid[".$box->box_id."][pos]", $arrayofhomepages, -1, 1, 0, 0, '', 1, 0, 0, '', 'minwidth75', 1)."\n";
 	print '<input type="hidden" name="boxid['.$box->box_id.'][value]" value="'.$box->box_id.'">'."\n";
+	print '</td>';
+
+	print '<td>';
+	print '</td>';
+
+	print '<td>';
+	print '</td>';
+
+	print '<td>';
+	print '<input type="submit" class="button small smallpaddingimp" value="'.$langs->trans("Activate").'">';
 	print '</td>';
 
 	print '</tr>'."\n";
 }
-if (!count($boxtoadd) && count($boxactivated)) {
-	print '<tr><td colspan="4"><span class="opacitymedium">'.$langs->trans("AllWidgetsWereEnabled").'</span></td></tr>';
-}
-print '</table>'."\n";
-print '</div>';
-
-print '<div class="right">';
-print '<input type="submit" class="button"'.(count($boxtoadd) ? '' : ' disabled').' value="'.$langs->trans("Activate").'">';
-print '</div>'."\n";
-print '</form>';
 print "\n".'<!-- End Boxes Available -->'."\n";
 
-
-//var_dump($boxactivated);
-print "<br>\n\n";
-print load_fiche_titre($langs->trans("BoxesActivated"), '', '');
-
-print '<div class="div-table-responsive-no-min">';
-print '<table class="tagtable liste">'."\n";
-
-print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Box").'</td>';
-print '<td>'.$langs->trans("Note").'/'.$langs->trans("Parameters").'</td>';
-print '<td class="center" width="160">'.$langs->trans("ActivatableOn").'</td>';
-print '<td class="center" width="60" colspan="2">'.$langs->trans("PositionByDefault").'</td>';
-print '<td class="center" width="80">'.$langs->trans("Disable").'</td>';
-print '</tr>'."\n";
 
 $box_order = 1;
 $foundrupture = 1;
@@ -397,8 +396,8 @@ foreach ($boxactivated as $key => $box) {
 	}
 
 	print "\n".'<!-- Box '.$box->boxcode.' -->'."\n";
-	print '<tr class="oddeven">';
-	print '<td>'.img_object("", $logo, 'height="14px"').' '.$langs->transnoentitiesnoconv($box->boxlabel);
+	print '<tr class="oddeven" style="height:3em !important;">';
+	print '<td>'.img_object("", $logo, 'class="pictofixedwidth" height="14px"').' '.$langs->transnoentitiesnoconv($box->boxlabel);
 	if (!empty($box->class) && preg_match('/graph_/', $box->class)) {
 		print img_picto('', 'graph', 'class="paddingleft"');
 	}
@@ -410,21 +409,24 @@ foreach ($boxactivated as $key => $box) {
 		}
 	}
 	print '</td>';
-	print '<td>';
+	$langs->load("errors");
+	print '<td class="tdoverflowmax300" title="'.dol_escape_htmltag($box->note == '(WarningUsingThisBoxSlowDown)' ? $langs->trans("WarningUsingThisBoxSlowDown") : $box->note).'">';
 	if ($box->note == '(WarningUsingThisBoxSlowDown)') {
-		$langs->load("errors");
-		print img_warning('', 0).' '.$langs->trans("WarningUsingThisBoxSlowDown");
+		print img_warning('', '').' '.$langs->trans("WarningUsingThisBoxSlowDown");
 	} else {
-		print ($box->note ? $box->note : '&nbsp;');
+		print($box->note ? $box->note : '&nbsp;');
 	}
 	print '</td>';
+	print '<td>';
+	print $form->textwithpicto('', $langs->trans("SourceFile").' : '.$box->sourcefile);
+	print '</td>'."\n";
 	print '<td class="center">'.(empty($arrayofhomepages[$box->position]) ? '' : $langs->trans($arrayofhomepages[$box->position])).'</td>';
 	$hasnext = ($key < (count($boxactivated) - 1));
 	$hasprevious = ($key != 0);
 	print '<td class="center">'.($key + 1).'</td>';
 	print '<td class="center nowraponall">';
-	print ($hasnext ? '<a class="reposition" href="boxes.php?action=switch&token='.newToken().'&switchfrom='.$box->rowid.'&switchto='.$boxactivated[$key + 1]->rowid.'">'.img_down().'</a>&nbsp;' : '');
-	print ($hasprevious ? '<a class="reposition" href="boxes.php?action=switch&token='.newToken().'&switchfrom='.$box->rowid.'&switchto='.$boxactivated[$key - 1]->rowid.'">'.img_up().'</a>' : '');
+	print($hasnext ? '<a class="reposition" href="boxes.php?action=switch&token='.newToken().'&switchfrom='.$box->rowid.'&switchto='.$boxactivated[$key + 1]->rowid.'">'.img_down().'</a>&nbsp;' : '');
+	print($hasprevious ? '<a class="reposition" href="boxes.php?action=switch&token='.newToken().'&switchfrom='.$box->rowid.'&switchto='.$boxactivated[$key - 1]->rowid.'">'.img_up().'</a>' : '');
 	print '</td>';
 	print '<td class="center">';
 	print '<a class="reposition" href="boxes.php?rowid='.$box->rowid.'&action=delete&token='.newToken().'">'.img_delete().'</a>';
@@ -437,6 +439,8 @@ print '</table>';
 print '</div>';
 print '<br>';
 
+print '</form>';
+
 
 // Other parameters
 
@@ -445,35 +449,29 @@ print load_fiche_titre($langs->trans("Other"), '', '');
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="addconst">';
+print '<input type="hidden" name="page_y" value="">';
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre">';
 print '<td class="liste_titre">'.$langs->trans("Parameter").'</td>';
-print '<td class="liste_titre">'.$langs->trans("Value").'</td>';
+print '<td class="liste_titre"></td>';
 print '</tr>';
 
-print '<tr class="oddeven">';
-print '<td>';
-print $langs->trans("MaxNbOfLinesForBoxes");
-print '</td>'."\n";
-print '<td>';
-print '<input type="text" class="flat" size="6" name="MAIN_BOXES_MAXLINES" value="'.(!empty($conf->global->MAIN_BOXES_MAXLINES) ? $conf->global->MAIN_BOXES_MAXLINES : '').'">';
+// Activate FileCache (so content of file boxes are stored into a cache file int boxes/temp for 3600 seconds)
+print '<tr class="oddeven"><td>'.$langs->trans("EnableFileCache").'</td><td>';
+if ($conf->use_javascript_ajax) {
+	print ajax_constantonoff('MAIN_ACTIVATE_FILECACHE', array(), null, 0, 0, 0, 2, 0, 1);
+} else {
+	print $form->selectyesno('MAIN_ACTIVATE_FILECACHE', getDolGlobalInt('MAIN_ACTIVATE_FILECACHE', 0), 1);
+}
 print '</td>';
 print '</tr>';
-
-// Activate FileCache - Developement
-if ($conf->global->MAIN_FEATURES_LEVEL == 2 || !empty($conf->global->MAIN_ACTIVATE_FILECACHE)) {
-	print '<tr class="oddeven"><td width="35%">'.$langs->trans("EnableFileCache").'</td><td>';
-	print $form->selectyesno('MAIN_ACTIVATE_FILECACHE', (!empty($conf->global->MAIN_ACTIVATE_FILECACHE) ? $conf->global->MAIN_ACTIVATE_FILECACHE : 0), 1);
-	print '</td>';
-	print '</tr>';
-}
 
 print '</table>';
 print '</div>';
 
-print $form->buttonsSaveCancel("Save", '');
+print $form->buttonsSaveCancel("Save", '', array(), false, 'reposition');
 
 print '</form>';
 print "\n".'<!-- End Other Const -->'."\n";
